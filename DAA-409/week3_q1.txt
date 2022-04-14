@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+void insertion(int arr[],int n)
+{
+    int comp,shift=0;
+    for(int i=1;i<n;i++)
+    {
+        int current=arr[i];
+        int j=i-1;
+        while(j>=0 && current<arr[j])
+        {
+            comp++;
+            arr[j+1]=arr[j];
+            j--;
+        }
+        shift++;
+        arr[j+1]=current;
+        }
+        for(int i=0;i<n;i++)
+        {
+            cout<<arr[i]<<" "<<endl;
+        }
+        shift=shift+comp;
+        cout<<"comparision ="<<comp<<endl;
+        cout<<"shifts ="<<shift<<endl;
+
+}
+int main()
+{
+    int t;int n;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n;
+        int arr[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        insertion(arr,n);
+    }
+}
