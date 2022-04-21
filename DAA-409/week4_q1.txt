@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+int comp=0;
+int merge(int arr[],int si,int mid,int ei)
+{
+    int count=0;
+    int indx1=si,indx2=mid+1;
+    int temp[ei-si+1];
+    int k=0;
+    
+    while (indx1<=mid && indx2<=ei)
+    {
+        if (arr[indx1]<arr[indx2])
+            temp[k++]=arr[indx1++];
+        else
+        {
+            temp[k++]=arr[indx2++];
+           
+        }
+        comp++;
+        
+    }
+    
+    
+    while(indx1<=mid)
+         temp[k++]=arr[indx1++];
+         
+    while(indx2<=ei)
+         temp[k++]=arr[indx2++];
+         
+    for (int f=0;f<k;f++)
+        arr[f+si]=temp[f];
+        
+    return count;
+}
+int merge_sort(int arr[],int si,int ei)
+{
+    int inversion=0;
+    if (si<ei)
+    {
+        int mid=si+(ei-si)/2;
+        inversion+=merge_sort(arr,si,mid);
+        inversion+=merge_sort(arr,mid+1,ei);
+        inversion+=merge(arr,si,mid,ei);
+    }
+    return inversion;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while (t--)
+    {
+        int n;
+        cin>>n;
+        int arr[n];
+        for (int i=0;i<n;i++)
+           cin>>arr[i];
+        
+        int inv = merge_sort(arr,0,n-1);
+        for (int i=0;i<n;i++)
+           cout<<arr[i]<<" ";
+           
+        cout<<endl<<"Inversions:"<<inv<<endl;
+        cout<<"Comparisions:"<<comp<<endl;
+    }
+    return 0;
+}
